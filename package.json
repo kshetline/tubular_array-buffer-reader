@@ -1,6 +1,6 @@
 {
   "name": "array-buffer-reader",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Read from an array or ArrayBuffer like a binary input stream.",
   "main": "dist/index.js",
   "typings": "dist/index",
