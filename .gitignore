@@ -33,6 +33,8 @@
 npm-debug.log
 testem.log
 /typings
+/.nyc_output
+webpack.config.cjs
 
 # e2e
 /e2e/*.js

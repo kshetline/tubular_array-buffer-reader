@@ -7,7 +7,7 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es5",
+    "target": "ES2015",
     "typeRoots": [
       "node_modules/@types"
     ],
@@ -15,5 +15,11 @@
       "es2017",
       "dom"
     ]
-  }
+  },
+  "include": ["./src/**/*"],
+  "exclude": [
+    "**/*.spec.ts",
+    "dist",
+    "node_modules"
+  ]
 }

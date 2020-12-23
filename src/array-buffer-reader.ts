@@ -22,7 +22,7 @@ const END_OF_BUFFER = 'End of buffer';
 export class ArrayBufferReader {
   private buffer: ArrayBuffer;
   private _offset = 0;
-  private bytes: Uint8ClampedArray;
+  private readonly bytes: Uint8ClampedArray;
 
   private static decodeUtf8(bytes: string): string {
     const s: string[] = [];
@@ -70,7 +70,7 @@ export class ArrayBufferReader {
   get offset(): number { return this._offset; }
   set offset(newOffset: number) {
     if (newOffset >= this.bytes.byteLength + 1)
-      throw(new Error(END_OF_BUFFER));
+      throw new Error(END_OF_BUFFER);
 
     this._offset = newOffset;
   }
@@ -86,14 +86,14 @@ export class ArrayBufferReader {
 
   readUnsignedInt16(): number {
     if (this._offset + 1 >= this.bytes.byteLength)
-      throw(new Error(END_OF_BUFFER));
+      throw new Error(END_OF_BUFFER);
 
     return ((this.read() << 8) | this.read());
   }
 
   readInt16(): number {
     if (this._offset + 1 >= this.bytes.byteLength)
-      throw(new Error(END_OF_BUFFER));
+      throw new Error(END_OF_BUFFER);
 
     const u = this.readUnsignedInt16();
 
@@ -102,14 +102,14 @@ export class ArrayBufferReader {
 
   readUnsignedInt32(): number {
     if (this._offset + 3 >= this.bytes.byteLength)
-      throw(new Error(END_OF_BUFFER));
+      throw new Error(END_OF_BUFFER);
 
     return ((this.read() * 16777216) + ((this.read() << 16) | (this.read() << 8) | this.read()));
   }
 
   readInt32(): number {
     if (this._offset + 3 >= this.bytes.byteLength)
-      throw(new Error(END_OF_BUFFER));
+      throw new Error(END_OF_BUFFER);
 
     const u = this.readUnsignedInt32();
 
@@ -118,7 +118,7 @@ export class ArrayBufferReader {
 
   readFloat(): number {
     if (this._offset + 3 >= this.bytes.byteLength)
-      throw(new Error(END_OF_BUFFER));
+      throw new Error(END_OF_BUFFER);
 
     const floatValue = new DataView(this.buffer).getFloat32(this.offset, false);
     this._offset += 4;
@@ -128,7 +128,7 @@ export class ArrayBufferReader {
 
   readDouble(): number {
     if (this._offset + 7 >= this.bytes.byteLength)
-      throw(new Error(END_OF_BUFFER));
+      throw new Error(END_OF_BUFFER);
 
     const floatValue = new DataView(this.buffer).getFloat64(this.offset, false);
     this._offset += 8;
@@ -196,7 +196,7 @@ export class ArrayBufferReader {
     const len = this.read();
 
     if (len < 0)
-      throw(new Error(END_OF_BUFFER));
+      throw new Error(END_OF_BUFFER);
 
     for (let i = 0; i < len; ++i) {
       const c = this.read();
