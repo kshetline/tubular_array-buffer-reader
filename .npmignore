@@ -8,3 +8,4 @@
 *.spec.d.ts
 *.spec.js
 /.nyc_output
+*.tgz
