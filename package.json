@@ -1,6 +1,6 @@
 {
   "name": "@tubular/array-buffer-reader",
-  "version": "3.0.0-alpha.0",
+  "version": "3.0.0",
   "description": "Read from an array or ArrayBuffer like a binary input stream.",
   "web": "dist/umd/index.js",
   "main": "dist/cjs/index.js",
