@@ -1,31 +1,24 @@
 {
   "name": "@tubular/array-buffer-reader",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Read from an array or ArrayBuffer like a binary input stream.",
-  "web": "dist/umd/index.js",
   "main": "dist/cjs/index.js",
-  "module": "dist/fesm2015/index.mjs",
+  "module": "dist/fesm2015/index.js",
   "esm2015": "dist/index.js",
-  "fesm2015": "dist/fesm2015/index.mjs",
+  "fesm2015": "dist/fesm2015/index.js",
   "typings": "dist/index",
   "sideEffects": false,
   "exports": {
-    "type": "./dist/index.d.ts",
-    "node": {
-      "import": "./dist/fesm2015/index.mjs",
-      "require": "./dist/cjs/index.js"
-    },
-    "browser": {
-      "import": "./dist/fesm2015/index.mjs",
-      "script": "./dist/umd/index.js"
-    },
+    "import": "./dist/fesm2015/index.js",
+    "require": "./dist/cjs/index.js",
+    "script": "./dist/umd/index.js",
     "default": "./dist/cjs/index.js"
   },
   "engines": {
     "node": ">= 10.24.1"
   },
   "scripts": {
-    "build": "rimraf dist/ && tsc && webpack && webpack --env umd=true && webpack --env cjs=true",
+    "build": "rimraf dist/ && tsc && rollup -c -m && webpack",
     "prepublishOnly": "npm run build",
     "lint": "eslint 'src/**/*.ts' '**/*.cjs'",
     "test": "nyc --reporter=html mocha --require ts-node/register src/**/*.spec.ts"
@@ -58,7 +51,9 @@
     "mocha": "^9.0.1",
     "nyc": "^15.1.0",
     "rimraf": "^3.0.2",
-    "terser-webpack-plugin": "^5.1.1",
+    "rollup": "^2.52.2",
+    "rollup-plugin-terser": "^7.0.2",
+    "terser-webpack-plugin": "^5.1.3",
     "ts-node": "^10.0.0",
     "typescript": "^4.3.4",
     "webpack": "^5.39.1",
