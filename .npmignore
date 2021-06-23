@@ -3,8 +3,11 @@
 /src
 /tsconfig.json
 /.eslintrc.json
+/.nyc_output
+/.vscode
 /webpack.*js
 *.js.map
+!/dist/**/*.js.map
 *.spec.d.ts
 *.spec.js
 /.nyc_output
