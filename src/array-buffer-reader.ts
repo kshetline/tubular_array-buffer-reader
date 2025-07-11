@@ -1,5 +1,5 @@
 /*
-  Copyright © 2017-2021 Kerry Shetline, kerry@shetline.com
+  Copyright © 2017-2025 Kerry Shetline, kerry@shetline.com
 
   MIT license: https://opensource.org/licenses/MIT
 
@@ -33,23 +33,32 @@ export class ArrayBufferReader {
 
       if (b0 < 0x80)
         s.push(String.fromCharCode(b0));
-      else if (b0 < 0xE0) {
-        if (i + 1 >= len)
-          s.push('?');
-        else {
-          ++i;
-          const b1 = bytes.charCodeAt(i);
-          s.push(String.fromCharCode(((b0 & 0x1F) << 6) | (b1 & 0x3F)));
-        }
-      }
-      else if (i + 2 >= len)
+      else if (i + 1 >= len) {
         s.push('?');
+        break;
+      }
+      else if (b0 < 0xE0)  {
+        const b1 = bytes.charCodeAt(++i);
+        s.push(String.fromCodePoint(((b0 & 0x1F) << 6) | (b1 & 0x3F)));
+      }
+      else if (i + 2 >= len) {
+        s.push('?');
+        break;
+      }
+      else if (b0 < 0xF0) {
+        const b1 = bytes.charCodeAt(++i);
+        const b2 = bytes.charCodeAt(++i);
+        s.push(String.fromCodePoint(((b0 & 0x0F) << 12) | ((b1 & 0x3F) << 6) | (b2 & 0x3F)));
+      }
+      else if (i + 3 >= len) {
+        s.push('?');
+        break;
+      }
       else {
-        ++i;
-        const b1 = bytes.charCodeAt(i);
-        ++i;
-        const b2 = bytes.charCodeAt(i);
-        s.push(String.fromCharCode(((b0 & 0x0F) << 12) | ((b1 & 0x3F) << 6) | (b2 & 0x3F)));
+        const b1 = bytes.charCodeAt(++i);
+        const b2 = bytes.charCodeAt(++i);
+        const b3 = bytes.charCodeAt(++i);
+        s.push(String.fromCodePoint(((b0 & 0x07) << 18) | ((b1 & 0x3F) << 12) | ((b2 & 0x3F) << 6) | (b3 & 0x3F)));
       }
     }
 
@@ -92,9 +101,6 @@ export class ArrayBufferReader {
   }
 
   readInt16(): number {
-    if (this._offset + 1 >= this.bytes.byteLength)
-      throw new Error(END_OF_BUFFER);
-
     const u = this.readUnsignedInt16();
 
     return (u >= 0x8000 ? u - 0x10000 : u);
@@ -108,9 +114,6 @@ export class ArrayBufferReader {
   }
 
   readInt32(): number {
-    if (this._offset + 3 >= this.bytes.byteLength)
-      throw new Error(END_OF_BUFFER);
-
     const u = this.readUnsignedInt32();
 
     return (u >= 0x80000000 ? u - 0x100000000 : u);

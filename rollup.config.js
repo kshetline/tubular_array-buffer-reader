@@ -1,24 +1,31 @@
-import sourcemaps from 'rollup-plugin-sourcemaps';
-import { terser } from 'rollup-plugin-terser';
-import typescript from '@rollup/plugin-typescript';
+const sourcemaps = require('rollup-plugin-sourcemaps');
+const terser = require('@rollup/plugin-terser');
+const typescript = require('@rollup/plugin-typescript');
+const pkg = require('./package.json');
 
-export default [
-  {
-    input: 'dist/index.js',
-    output: [
-      {
-        file: 'dist/cjs/index.js',
-        format: 'cjs'
-      },
-      {
-        file: 'dist/fesm2015/index.js',
-        format: 'es'
-      }
-    ],
-    plugins: [
-      sourcemaps(),
-      terser({ output: { max_line_len: 511 } }),
-      typescript({ sourceMap: true, inlineSources: true })
-    ]
-  }
-];
+module.exports = [{
+  input: 'src/index.ts',
+  output: [
+    {
+      file: pkg.browser,
+      sourcemap: true,
+      format: 'umd',
+      name: 'tbABR'
+    },
+    {
+      file: pkg.main,
+      sourcemap: true,
+      format: 'cjs'
+    },
+    {
+      file: pkg.module,
+      sourcemap: true,
+      format: 'esm'
+    }
+  ],
+  plugins: [
+    typescript({ inlineSources: true }),
+    sourcemaps(),
+    terser({ format: { max_line_len: 511 }, sourceMap: { includeSources: true } })
+  ]
+}];
