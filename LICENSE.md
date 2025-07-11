@@ -1,6 +1,6 @@
 ## array-buffer-reader
 
-Copyright © 2017-2018 Kerry Shetline, kerry@shetline.com
+Copyright © 2017-2025 Kerry Shetline, kerry@shetline.com
 
 ### Licensing
 
