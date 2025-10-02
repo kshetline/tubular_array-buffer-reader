@@ -141,7 +141,7 @@ export class ArrayBufferReader {
 
   readAnsiString(): string {
     const s: string[] = [];
-    let c;
+    let c: number;
 
     while ((c = this.read()) > 0)
       s.push(String.fromCharCode(c));

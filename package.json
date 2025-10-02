@@ -1,6 +1,6 @@
 {
   "name": "@tubular/array-buffer-reader",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "description": "Read from an array or ArrayBuffer like a binary input stream.",
   "module": "dist/index.min.mjs",
   "main": "dist/index.min.cjs",
@@ -13,7 +13,8 @@
       "import": "./dist/index.min.mjs",
       "require": "./dist/index.min.cjs",
       "browser": "./dist/index.min.js",
-      "default": "./dist/index.min.cjs"
+      "default": "./dist/index.min.cjs",
+      "types": "./dist/index.d.ts"
     },
     "./dist/cjs/index.js": "./dist/index.min.cjs",
     "./dist/fesm2015/index.js": "./dist/index.min.mjs",
